@@ -1,0 +1,20 @@
+{
+    "properties": {
+        "city": {
+            "type": "text",
+            "analyzer": "autocomplete"
+        },
+        "country": {
+            "type": "text",
+            "analyzer": "autocomplete"
+        },
+        "username": {
+            "type": "text",
+            "analyzer": "autocomplete"
+        },
+        "first_name": {
+            "type": "text",
+            "analyzer": "autocomplete"
+        }
+    }
+}

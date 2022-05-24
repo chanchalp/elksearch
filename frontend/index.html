@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <div>
+        <input id="term" type="text" , onkeyup="search()">
+        <p>
+            <span id="demo">
+            </span>
+        </p>
+        <!----<button type="button" onclick="search()">Search</button>--->
+    </div>
+    <br />
+    <div id="output"></div>
+    <script>
+        const search = async () => {
+            let term = document.getElementById("term");
+            let output = document.getElementById("output");
+            output.innerHTML = "";
+            const result = await fetch("http://localhost:3000/api/search/autocomplete?term=" + term.value)
+                .then(response => response.json());
+            if (result.success === false || result.success === 'false') {
+                document.getElementById('demo').innerHTML = result.message;
+            } else {
+                document.getElementById('demo').innerHTML = '';
+            }
+            result.response.forEach(chat => {
+                let messageContainer = document.createElement("div");
+                //messageContainer.innerHTML = `<strong>MongoObjectId </strong>: ${chat._id}`;
+                // chat.messages.forEach(msg => {
+                let message = document.createElement("p");
+                // chat.highlights.forEach(highlight => {
+                //     let texts = highlight.texts;
+                //     let replacements = texts.map(text => {
+                //         if (text.type == "hit") {
+                //             return `<strong>name:</strong> <mark>${text.value}</mark>`;
+                //         } else {
+                //             return text.value;
+                //         }
+                //     }).join("");
+                //     let originals = texts.map(text => {
+                //         return text.value;
+                //     }).join("");
+                //     chat.name = chat.name.replace(originals, replacements);
+                // });
+                // message.innerHTML = chat.name;
+                message.innerHTML = JSON.stringify(chat);
+                messageContainer.appendChild(message);
+                // });
+                output.appendChild(messageContainer);
+            });
+        };
+    </script>
+</body>
+
+</html>
